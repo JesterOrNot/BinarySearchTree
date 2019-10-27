@@ -41,6 +41,13 @@ void printPostOrder(struct Node* node) {
         cout << node->value << ", ";
     }
 }
+void printOutOrder(struct Node* node) {
+    if (node != NULL) {
+        printOutOrder(node->right);
+        cout << node->value << ", ";
+        printOutOrder(node->left);
+    }
+}
 bool findNode(double target, struct BinaryTree* tree, struct Node* current) {
     if (target==current->value) {
         return(true);
