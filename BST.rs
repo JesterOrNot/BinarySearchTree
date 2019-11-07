@@ -1,3 +1,11 @@
+struct tree_node {
+    left: Box<tree_node>,
+    right: Box<tree_node>,
+    value: i32,
+}
+struct binary_tree {
+    root: tree_node
+}
 fn main() {
-    println!("Hello, world!");
+    let tree: binary_tree;
 }
