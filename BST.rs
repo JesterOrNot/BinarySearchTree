@@ -1,32 +1,37 @@
-#[derive(Clone)]
+use std::fmt::Display;
+use std::fmt::Debug;
+
+#[derive(Clone, Debug, std::cmp::PartialEq)]
 struct TreeNode<T> {
-    pub left: Box<TreeNode<T>>,
-    pub right: Box<TreeNode<T>>,
+    pub left: Option<Box<TreeNode<T>>>,
+    pub right: Option<Box<TreeNode<T>>>,
     pub value: T,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 struct BinaryTree<T> {
     root: TreeNode<T>,
 }
-impl BinaryTree<i32> {
-    pub fn print_in_order(&self, root: TreeNode<i32>) {
-        if root.value == None {
-            return
+
+impl<T: Display> BinaryTree<T> {
+    pub fn print_in_order(&self, root: &TreeNode<T>) {
+        if let Some(left) = &root.left {
+            self.print_in_order(&*left);
         }
-        self.print_in_order(*root.left);
-        println!("{}", &root.value);
-        self.print_in_order(*root.right);
+        println!("{}", root.value);
+        if let Some(right) = &root.right {
+            self.print_in_order(&*right);
+        }
     }
 }
-impl TreeNode<i32> {
-    fn new(val: i32) -> TreeNode<i32> {
-        return TreeNode::<i32>{value: val, left: Box::from(TreeNode::new(0)), right: Box::from(TreeNode::new(0))};
+impl<T> TreeNode<T> {
+    fn new(val: T) -> Self {
+        return TreeNode{value: val, left: None, right: None};
     }
 }
 fn main() {
-    let mut tree = BinaryTree{root: TreeNode::new(12)};
-    tree.root.value = 8;
-    tree.root.left.value = 3;
-    tree.clone().print_in_order(tree.root);
+    let mut tree = BinaryTree{root: TreeNode::new(9)};
+    tree.root.left = Some(Box::new(TreeNode::new(3)));
+    tree.root.right = Some(Box::new(TreeNode::new(17)));
+    tree.print_in_order(&tree.clone().root);
 }
