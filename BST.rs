@@ -18,7 +18,7 @@ impl<T: Display> BinaryTree<T> {
         if let Some(left) = &root.left {
             self.print_in_order(left);
         }
-        println!("{}", root.value);
+        print!("{}, ", root.value);
         if let Some(right) = &root.right {
             self.print_in_order(right);
         }
@@ -34,4 +34,5 @@ fn main() {
     tree.root.left = Some(Box::new(TreeNode::new(3)));
     tree.root.right = Some(Box::new(TreeNode::new(17)));
     tree.print_in_order(&tree.root);
+    println!();
 }
