@@ -1,7 +1,7 @@
 use std::fmt::Display;
 use std::fmt::Debug;
 
-#[derive(Clone, Debug, std::cmp::PartialEq)]
+#[derive(Clone, Debug)]
 struct TreeNode<T> {
     pub left: Option<Box<TreeNode<T>>>,
     pub right: Option<Box<TreeNode<T>>>,
